@@ -1,4 +1,4 @@
-var topics = ["sloth", "corgi", "bunny", "cat", "trash panda"];
+var topics = ["doge", "sea puppy", "cat snake", "danger noodle", "trash panda", "small floof", "pupper", "doggo"];
   
 function displayTopicInfo() {
 
@@ -12,6 +12,7 @@ function displayTopicInfo() {
     }).then(function(response) {
         console.log(response);
         let results = response.data;
+        $("#topics-view").empty();
         for (var i = 0; i < results.length; i++) {
             let gifDiv = $("<div>");
             gifDiv.addClass("gif-div");
@@ -19,11 +20,14 @@ function displayTopicInfo() {
             let p = $("<p>").text("Rating: " + rating);
             p.addClass("font-weight-light ratingp text-center")
             let gifImage = $("<img>");
-            gifImage.addClass("gif shadow-sm p-3 mb-5 bg-white rounded");
+            gifImage.addClass("gif shadow-sm p-3 mb-5 rounded");
             gifImage.attr("src", results[i].images.fixed_height_still.url);
             gifImage.attr("data-state", "still");
             gifImage.attr("data-animate", results[i].images.fixed_height.url);
             gifImage.attr("data-still", results[i].images.fixed_height_still.url);
+            gifImage.attr("data-toggle", "tooltip");
+            gifImage.attr("data-placement", "top");
+            gifImage.attr("title", "Click to Animate/Pause!")
             gifDiv.append(p);
             gifDiv.append(gifImage);
             $("#topics-view").prepend(gifDiv);
@@ -36,10 +40,16 @@ function displayTopicInfo() {
             if (state == "still"){
                 clickedGif.attr("src", animate)
                 clickedGif.attr("data-state", "animated")
+                // ClickedGif.attr("data-toggle", "tooltip");
+                // ClickedGif.attr("data-placement", "top");
+                // ClickedGif.attr("title", "Click to Animate!")
               }
               else if (state == "animated"){
                 clickedGif.attr("src", still)
                 clickedGif.attr("data-state", "still")
+                // ClickedGif.attr("data-toggle", "tooltip");
+                // ClickedGif.attr("data-placement", "top");
+                // ClickedGif.attr("title", "Click to Pause!")
               }
         })
     });
